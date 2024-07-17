@@ -8,7 +8,9 @@ import (
 
 	"github.com/spf13/cobra"
 )
+
 var appVersion = "noop"
+
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{
 	Use:   "version",

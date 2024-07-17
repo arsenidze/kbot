@@ -20,9 +20,9 @@ var (
 
 // kbotCmd represents the kbot command
 var kbotCmd = &cobra.Command{
-	Use:   "kbot",
+	Use:     "kbot",
 	Aliases: []string{"start"},
-	Short: "A brief description of your command",
+	Short:   "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 
@@ -33,29 +33,29 @@ to quickly create a Cobra application.`,
 		fmt.Printf("kbot %s %s called", appVersion, TeleToken)
 
 		pref := telebot.Settings{
-			URL: "",
-			Token: TeleToken,
+			URL:    "",
+			Token:  TeleToken,
 			Poller: &telebot.LongPoller{Timeout: 10 * time.Second},
 		}
-	
+
 		kbot, err := telebot.NewBot(pref)
 		if err != nil {
 			log.Fatal(err)
 			return
 		}
-	
+
 		kbot.Handle(telebot.OnText, func(c telebot.Context) error {
 			payload := c.Message().Payload
 			log.Print(payload, c.Text())
-			
+
 			switch payload {
-				case "hello":
-					err = c.Send(fmt.Sprintf("Hello I am Kbot %s!", appVersion))
+			case "hello":
+				err = c.Send(fmt.Sprintf("Hello I am Kbot %s!", appVersion))
 			}
 
 			return err
 		})
-	
+
 		kbot.Start()
 	},
 }
